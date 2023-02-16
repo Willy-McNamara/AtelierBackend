@@ -15,5 +15,11 @@
      "strictPropertyInitialization": false,
      "noImplicitAny": true,
      "skipLibCheck": true
-   }
+   },
+   "include": ["./src/**/*"],
+   "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  },
  }

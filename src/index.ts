@@ -1,26 +1,20 @@
-import { AppDataSource } from "./data-source"
-import express from 'express'
+import express, { Express, Request, Response } from 'express'
+import dotenv from 'dotenv'
+import morgan from 'morgan'
+import cors from 'cors'
 
-// default port for backend
-const PORT = 8090
 
-const App = () => {
-  const app = express()
-  app.use(express.json())
+// perhaps should put port in a .env but doing this for now
+const PORT = 3099
 
-  app.get('/api/v1/hello', async (req, res, next) => {
-    res.send('success')
-  })
-   return app
- }
+const app: Express = express()
+app.use(cors());
+app.use(morgan('dev'))
+app.use(express.json())
 
-// Initializes the Datasource for TypeORM
-AppDataSource.initialize().then(async () => {
- // Express setup
- const app = App()
-  app.listen(PORT, () => {
-   console.log(`Server running on port ${PORT}`)
- })
-}).catch((err) => {
- console.error(err.stack)
-})
+// routes to controllers here:
+
+// Give the server ears
+app.listen(PORT, () => {
+ console.log(`Server running on port ${PORT}`)
+});
