@@ -3,9 +3,8 @@ import dotenv from 'dotenv'
 import morgan from 'morgan'
 import cors from 'cors'
 
-
-// perhaps should put port in a .env but doing this for now
-const PORT = 3099
+dotenv.config()
+const PORT: string = process.env.PORT || '3099'
 
 const app: Express = express()
 app.use(cors());

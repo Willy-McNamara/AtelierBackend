@@ -1,38 +1,42 @@
 import { Model, CreationOptional, InferAttributes, InferCreationAttributes, DataTypes } from 'sequelize'
-import { sequelize } from '../database'
+import { sequelize } from './database'
+
+/*
+Defines Models for each data category and their relationships. These will be the tables in our database!
+*/
 
 interface ProductModel extends Model<InferAttributes<ProductModel>, InferCreationAttributes<ProductModel>> {
-  id: CreationOptional<number>;
+  id: number;
   name: string;
   slogan: string;
   description: string;
   category: string;
   default_price: string;
 }
-/*
+
 interface SkusModel extends Model<InferAttributes<SkusModel>, InferCreationAttributes<SkusModel>> {
-  id: CreationOptional<number>;
+  id: number;
   size: string;
   quantity: number;
   styles_id: number;
 }
 
 interface FeaturesModel extends Model<InferAttributes<FeaturesModel>, InferCreationAttributes<FeaturesModel>> {
-  id: CreationOptional<number>;
+  id: number;
   feature: string,
   value: string | null,
   products_id: number,
 }
 
 interface PhotosModel extends Model<InferAttributes<PhotosModel>, InferCreationAttributes<PhotosModel>> {
-  id: CreationOptional<number>;
+  id: number;
   url: string,
   thumbnail_url: string,
   styles_id: number
 }
 
 interface StylesModel extends Model<InferAttributes<StylesModel>, InferCreationAttributes<StylesModel>> {
-  id: CreationOptional<number>;
+  id: number;
   name: string;
   sale_price: string;
   original_price: string;
@@ -42,11 +46,11 @@ interface StylesModel extends Model<InferAttributes<StylesModel>, InferCreationA
 
 
 interface RelatedModel extends Model<InferAttributes<RelatedModel>, InferCreationAttributes<RelatedModel>> {
-  id: CreationOptional<number>;
+  id: number;
   current_product_id: number,
   related_product_id: number
 }
-*/
+
 export const Products = sequelize.define<ProductModel>('Products', {
   id: {
     type: DataTypes.INTEGER,
@@ -71,10 +75,10 @@ export const Products = sequelize.define<ProductModel>('Products', {
 {timestamps: false}
 )
 
-/*
+
 export const Styles = sequelize.define<StylesModel>('styles', {
   id: {
-    type: DataTypes.INTEGER.UNSIGNED,
+    type: DataTypes.INTEGER,
     primaryKey: true,
   },
   name: {
@@ -90,10 +94,10 @@ export const Styles = sequelize.define<StylesModel>('styles', {
     type: DataTypes.BOOLEAN
   },
   products_id: {
-    type: DataTypes.INTEGER.UNSIGNED,
+    type: DataTypes.INTEGER,
     references: {
       model: Products,
-      key: 'products_id'
+      key: 'id'
     }
   }
 },
@@ -104,7 +108,7 @@ Styles.belongsTo(Products, {foreignKey: 'products_id'})
 
 export const Features = sequelize.define<FeaturesModel>('features', {
   id: {
-    type: DataTypes.INTEGER.UNSIGNED,
+    type: DataTypes.INTEGER,
     primaryKey: true,
   },
   feature: {
@@ -114,7 +118,7 @@ export const Features = sequelize.define<FeaturesModel>('features', {
     type: DataTypes.STRING
   },
   products_id: {
-    type: DataTypes.INTEGER.UNSIGNED,
+    type: DataTypes.INTEGER,
     references: {
       model: Products,
       key: 'id'
@@ -129,7 +133,7 @@ Features.belongsTo(Products, {foreignKey: 'products_id'})
 
 export const Photos = sequelize.define<PhotosModel>('photos', {
   id: {
-    type: DataTypes.INTEGER.UNSIGNED,
+    type: DataTypes.INTEGER,
     primaryKey: true
   },
   url: {
@@ -139,7 +143,7 @@ export const Photos = sequelize.define<PhotosModel>('photos', {
     type: DataTypes.STRING
   },
   styles_id: {
-    type: DataTypes.INTEGER.UNSIGNED,
+    type: DataTypes.INTEGER,
     references: {
       model: Styles,
       key: 'id'
@@ -154,7 +158,7 @@ Photos.belongsTo(Styles, {foreignKey: 'styles_id'})
 
 export const Skus = sequelize.define<SkusModel>('skus', {
   id: {
-    type: DataTypes.INTEGER.UNSIGNED,
+    type: DataTypes.INTEGER,
     primaryKey: true
   },
   size: {
@@ -164,7 +168,7 @@ export const Skus = sequelize.define<SkusModel>('skus', {
     type: DataTypes.INTEGER
   },
   styles_id: {
-    type: DataTypes.INTEGER.UNSIGNED,
+    type: DataTypes.INTEGER,
     references: {
       model: Styles,
       key: 'id'
@@ -180,18 +184,18 @@ Skus.belongsTo(Styles, {foreignKey: 'styles_id'})
 
 export const RelatedItems = sequelize.define<RelatedModel>('related_items', {
   id: {
-    type: DataTypes.INTEGER.UNSIGNED,
+    type: DataTypes.INTEGER,
     primaryKey: true,
   },
   current_product_id: {
-    type: DataTypes.INTEGER.UNSIGNED,
+    type: DataTypes.INTEGER,
     references: {
       model: Products,
       key: 'id'
     }
   },
   related_product_id: {
-    type: DataTypes.INTEGER.UNSIGNED,
+    type: DataTypes.INTEGER,
     references: {
       model: Products,
       key: 'id'
@@ -205,7 +209,3 @@ Products.hasMany(RelatedItems, {foreignKey: 'current_product_id'})
 Products.hasMany(RelatedItems, {foreignKey: 'related_product_id'})
 RelatedItems.belongsTo(Products, {foreignKey: 'current_product_id'})
 RelatedItems.belongsTo(Products, {foreignKey: 'related_product_id'})
-*/
-
-
-sequelize.sync();
