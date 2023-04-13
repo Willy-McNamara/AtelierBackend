@@ -6,12 +6,17 @@ Orchestrates the load of all data into our db, and adds indexing to the db for f
 */
 sequelize.sync()
   .then(async () => {
-    // await parseData('products', Products)
-    // await parseData('styles', Styles)
+    await parseData('products', Products)
+    await parseData('styles', Styles)
     await parseData('skus', Skus)
-    // await parseData('photos', Photos)
-    // await parseData('features', Features)
-    // await parseData('related', RelatedItems)
+    await parseData('photos', Photos)
+    await parseData('features', Features)
+    await parseData('related', RelatedItems)
+    sequelize.query('create index features_products_id on features(products_id);')
+    sequelize.query('create index styles_products_id on styles(products_id);')
+    sequelize.query('create index photos_styles_id on photos(styles_id);')
+    sequelize.query('create index skus_styles_id on skus(styles_id);')
+    sequelize.query('create index current_product_id on related_items(current_product_id);')
   })
   .then(() => {
     console.log('All data loaded!')

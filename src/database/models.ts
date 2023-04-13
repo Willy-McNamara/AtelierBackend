@@ -51,7 +51,7 @@ interface RelatedModel extends Model<InferAttributes<RelatedModel>, InferCreatio
   related_product_id: number
 }
 
-export const Products = sequelize.define<ProductModel>('Products', {
+export const Products = sequelize.define<ProductModel>('products', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
