@@ -6,7 +6,6 @@ export default function getProducts(req: Request, res: Response){
   const { product_id } = req.params
   const numProductId = Number(product_id)
   if (Number.isNaN(numProductId)) {
-    console.log('product id is not a number');
     res.status(400).send('invalid parameter')
   } else {
     queryForSingleProduct(numProductId)
