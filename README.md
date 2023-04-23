@@ -24,6 +24,6 @@ This API exists to create a smooth browsing experience through easy, fast access
 
 ## Performance
 To allow for 1000 RPS, this API was deployed over five different instances: a database instance, a load balancer instance, and three server handling instances. Below are key metric improvements compared to running the endpoints on a single instance. All utilize a throughput of 1000 RPS for 60 seconds.
-* (something like this tbd)Get Questions
+* Get Product by ID
   * 63% to 0% Error Rate
   * 4655 ms to 1 ms Latency
